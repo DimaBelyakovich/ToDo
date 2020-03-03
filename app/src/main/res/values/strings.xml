@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="task_title_hint">Enter a title for the task</string>
+    <string name="task_title_label">Title</string>
+    <string name="task_details_label">Date</string>
+    <string name="task_solved_label">Solved</string>
+    <string name="date_picker_fragment">Pick a date</string>
+    <string name="new_task">New task</string>
+    <string name="delete_task_here">Delete</string>
+    <string name="no_tasks_add">No Tasks</string>
+    <string name="no_tasks_text">There are no tasks</string>
+</resources>

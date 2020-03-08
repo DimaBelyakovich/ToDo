@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,8 +36,7 @@ public class TaskListFragment extends Fragment {
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private CheckBox mDone;
-
+        private CheckBox mSolved;
         private Task mTask;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent){
@@ -45,14 +44,14 @@ public class TaskListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.task_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.task_date);
-            mDone = (CheckBox)itemView.findViewById(R.id.task_solved);
+            mSolved = (CheckBox)itemView.findViewById(R.id.task_solved);
         }
 
         public void bind(Task task){
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
             mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
-            mDone.setChecked(mTask.isSolved());
+            mSolved.setChecked(mTask.isSolved());
         }
 
         @Override
@@ -90,7 +89,6 @@ public class TaskListFragment extends Fragment {
             mTasks = tasks;
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -2,7 +2,7 @@
     <string name="app_name">ToDo</string>
     <string name="task_title_hint">Enter a title for the task</string>
     <string name="task_title_label">Title</string>
-    <string name="task_details_label">Date</string>
+    <string name="task_details_label">Set date</string>
     <string name="task_solved_label">Solved</string>
     <string name="date_picker_fragment">Pick a date</string>
     <string name="new_task">New task</string>

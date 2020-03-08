@@ -7,10 +7,11 @@
     android:padding="20dp">
 
     <TextView
-        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/task_title_label"/>
+        android:text="@string/task_title_label"
+        android:textSize="11dp"
+        android:textColor="@color/colorDark"/>
 
     <EditText
         android:id="@+id/task_title"
@@ -19,10 +20,11 @@
         android:hint="@string/task_title_hint"/>
 
     <TextView
-        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/task_details_label"/>
+        android:text="@string/task_details_label"
+        android:textSize="11dp"
+        android:textColor="@color/colorDark"/>
 
     <Button
         android:id="@+id/task_date"

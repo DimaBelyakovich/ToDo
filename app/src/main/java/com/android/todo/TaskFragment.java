@@ -17,11 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class TaskFragment extends Fragment {
@@ -140,6 +141,6 @@ public class TaskFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateButton.setText(mTask.getDate().toString());
+        mDateButton.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
     }
 }

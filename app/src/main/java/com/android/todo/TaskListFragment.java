@@ -8,8 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class TaskListFragment extends Fragment {
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private CheckBox mDone;
 
         private Task mTask;
 
@@ -43,12 +45,14 @@ public class TaskListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.task_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.task_date);
+            mDone = (CheckBox)itemView.findViewById(R.id.task_solved);
         }
 
         public void bind(Task task){
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
             mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
+            mDone.setChecked(mTask.isSolved());
         }
 
         @Override

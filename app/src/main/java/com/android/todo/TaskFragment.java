@@ -48,7 +48,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
         TaskLab.get(getActivity()).updateTask(mTask);
     }
 

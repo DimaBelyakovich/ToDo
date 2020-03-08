@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/task_title_label"
-        android:textSize="11dp"
-        android:textColor="@color/colorDark"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/task_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_title_hint"/>
+        <CheckBox
+            android:id="@+id/task_solved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"/>
+
+        <EditText
+            android:id="@+id/task_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_title_hint"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/task_details_label"
-        android:textSize="11dp"
+        android:textSize="14dp"
         android:textColor="@color/colorDark"/>
 
     <Button
         android:id="@+id/task_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <CheckBox
-        android:id="@+id/task_solved"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/task_solved_label"/>
 
 </LinearLayout>

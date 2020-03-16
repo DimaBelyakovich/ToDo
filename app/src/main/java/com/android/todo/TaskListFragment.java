@@ -46,11 +46,21 @@ public class TaskListFragment extends Fragment {
         private Task mTask;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent){
+
             super(inflater.inflate(R.layout.list_item_task, parent,false));
+
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.task_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.task_date);
             mSolved = (CheckBox)itemView.findViewById(R.id.task_solved);
+
+            ////////
+            /*mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mTask.setSolved(isChecked);
+                }
+            });*/
         }
 
         public void bind(Task task){
@@ -112,7 +122,7 @@ public class TaskListFragment extends Fragment {
         ///
         AnimationSet set = new AnimationSet(true);
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
-        animation.setDuration(500);
+        animation.setDuration(50);
         set.addAnimation(animation);
 
         animation = new TranslateAnimation(

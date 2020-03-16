@@ -8,6 +8,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -18,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.Annotation;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -52,6 +58,13 @@ public class TaskListFragment extends Fragment {
             mTitleTextView.setText(mTask.getTitle());
             mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
             mSolved.setChecked(mTask.isSolved());
+
+            mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mTask.setSolved(isChecked);
+                }
+            });
         }
 
         @Override
@@ -59,6 +72,7 @@ public class TaskListFragment extends Fragment {
             Intent intent = TaskPagerActivity.newIntent(getActivity(), mTask.getId());
             startActivity(intent);
         }
+
     }
 
     private class TaskAdater extends RecyclerView.Adapter<TaskHolder>{
@@ -95,6 +109,22 @@ public class TaskListFragment extends Fragment {
         View view = inflater.inflate(R.layout.frgment_task_list, container, false);
         mTaskRecyclerView = (RecyclerView) view.findViewById(R.id.task_recycler_view);
         mTaskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ///
+        AnimationSet set = new AnimationSet(true);
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(500);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0.0f
+        );
+        animation.setDuration(100);
+        set.addAnimation(animation);
+
+        mTaskRecyclerView.setLayoutAnimation(new LayoutAnimationController(set, 0.5f));
+
+        ////////
         mTextView = view.findViewById(R.id.no_tasks);
 
         if(TaskLab.get(getActivity()).getTasks().size() <= 0) {

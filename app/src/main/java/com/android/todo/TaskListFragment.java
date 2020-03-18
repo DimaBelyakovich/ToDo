@@ -1,6 +1,7 @@
 package com.android.todo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,8 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,8 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.Annotation;
 import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +31,7 @@ public class TaskListFragment extends Fragment {
     private RecyclerView mTaskRecyclerView;
     private TaskAdater mAdapter;
     private TextView mTextView;
+    private Date today = new Date();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class TaskListFragment extends Fragment {
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private CheckBox mSolved;
         private Task mTask;
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent){
@@ -52,29 +51,25 @@ public class TaskListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.task_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.task_date);
-            mSolved = (CheckBox)itemView.findViewById(R.id.task_solved);
-
-            ////////
-            /*mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mTask.setSolved(isChecked);
-                }
-            });*/
         }
 
         public void bind(Task task){
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
             mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
-            mSolved.setChecked(mTask.isSolved());
+            if(mTask.isSolved()){
+                mTitleTextView.setTextColor(Color.parseColor("#8CBA51"));
+                mDateTextView.setTextColor(Color.parseColor("#8CBA51"));
+                itemView.setBackgroundColor(Color.parseColor("#F1F6FB"));
+            }
 
-            mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mTask.setSolved(isChecked);
-                }
-            });
+            if((today.compareTo(mTask.getDate()) == 1) && !mTask.isSolved()){
+                mDateTextView.setTextColor(Color.parseColor("#F6522E"));
+            }
+
+            if((today.compareTo(mTask.getDate()) == 0) && !mTask.isSolved()){
+                mDateTextView.setTextColor(Color.parseColor("#A400FF"));
+            }
         }
 
         @Override
@@ -129,7 +124,7 @@ public class TaskListFragment extends Fragment {
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0.0f
         );
-        animation.setDuration(100);
+        animation.setDuration(50);
         set.addAnimation(animation);
 
         mTaskRecyclerView.setLayoutAnimation(new LayoutAnimationController(set, 0.5f));

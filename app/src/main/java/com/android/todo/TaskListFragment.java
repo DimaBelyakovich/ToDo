@@ -171,14 +171,6 @@ public class TaskListFragment extends Fragment {
         TaskLab taskLab = TaskLab.get(getActivity());
         List<Task> tasks = taskLab.getTasks();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            if(tasks.get(i).isSolved()){
-                Task taskTmp = tasks.get(i);
-                tasks.remove(i);
-                tasks.add(tasks.size(), taskTmp);
-            }
-        }
-
         if(mAdapter == null){
             mAdapter = new TaskAdater(tasks);
             mTaskRecyclerView.setAdapter(mAdapter);

@@ -10,6 +10,8 @@ import com.android.todo.database.TaskDbSchema.TaskTable;
 import com.android.todo.database.TaskBaseHelper;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 

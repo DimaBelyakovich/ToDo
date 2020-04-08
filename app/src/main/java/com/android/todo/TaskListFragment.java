@@ -19,10 +19,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -77,7 +79,6 @@ public class TaskListFragment extends Fragment {
             Intent intent = TaskPagerActivity.newIntent(getActivity(), mTask.getId());
             startActivity(intent);
         }
-
     }
 
     private class TaskAdater extends RecyclerView.Adapter<TaskHolder>{
@@ -107,6 +108,7 @@ public class TaskListFragment extends Fragment {
         public void setTasks(List<Task> tasks){
             mTasks = tasks;
         }
+
     }
 
     @Override
@@ -114,6 +116,7 @@ public class TaskListFragment extends Fragment {
         View view = inflater.inflate(R.layout.frgment_task_list, container, false);
         mTaskRecyclerView = (RecyclerView) view.findViewById(R.id.task_recycler_view);
         mTaskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         ///
         AnimationSet set = new AnimationSet(true);
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
@@ -147,6 +150,12 @@ public class TaskListFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        updateUI();
+    }
+
+    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_task_list, menu);
@@ -169,7 +178,25 @@ public class TaskListFragment extends Fragment {
 
     private void updateUI(){
         TaskLab taskLab = TaskLab.get(getActivity());
-        List<Task> tasks = taskLab.getTasks();
+        List<Task> tasksAll = taskLab.getTasks();
+
+        List<Task> tasksSolved = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
+
+
+        for (int i = 0; i < tasksAll.size(); i++) {
+            Task taskTmp = tasksAll.get(i);
+            if(!taskTmp.isSolved()){
+                tasks.add(taskTmp);
+            }else {
+                tasksSolved.add(taskTmp);
+            }
+        }
+
+        for (int i = 0; i < tasksSolved.size(); i++) {
+            Task taskTmp = tasksSolved.get(i);
+            tasks.add(taskTmp);
+        }
 
         if(mAdapter == null){
             mAdapter = new TaskAdater(tasks);

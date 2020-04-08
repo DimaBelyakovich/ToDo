@@ -8,6 +8,7 @@ public class Task {
     private String mTitle;
     private boolean mSolved;
     private Date mDate;
+    private String mDescription;
 
 
     public Task(){
@@ -17,6 +18,14 @@ public class Task {
     public Task(UUID id){
         mId = id;
         mDate = new Date();
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String Description) {
+        this.mDescription = Description;
     }
 
     public UUID getId() {

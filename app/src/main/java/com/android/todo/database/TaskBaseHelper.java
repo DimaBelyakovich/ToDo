@@ -21,7 +21,8 @@ public class TaskBaseHelper extends SQLiteOpenHelper {
                 TaskTable.Cols.UUID + ", " +
                 TaskTable.Cols.TITLE + ", " +
                 TaskTable.Cols.DATE + ", " +
-                TaskTable.Cols.SOLVED +
+                TaskTable.Cols.SOLVED +", "+
+                TaskTable.Cols.DESCRIPTION +
                 ")"
         );
     }

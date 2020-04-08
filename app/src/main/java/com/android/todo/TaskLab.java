@@ -101,6 +101,7 @@ public class TaskLab {
         values.put(TaskTable.Cols.TITLE, task.getTitle());
         values.put(TaskTable.Cols.DATE, task.getDate().getTime());
         values.put(TaskTable.Cols.SOLVED, task.isSolved()?1:0);
+        values.put(TaskTable.Cols.DESCRIPTION, task.getDescription());
         return values;
     }
 }

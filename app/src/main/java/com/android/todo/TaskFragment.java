@@ -35,6 +35,7 @@ public class TaskFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private EditText mDescription;
 
     public static TaskFragment newInstance(UUID taskId){
         Bundle args = new Bundle();
@@ -99,6 +100,25 @@ public class TaskFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //
+            }
+        });
+
+        mDescription = (EditText)v.findViewById(R.id.description);
+        mDescription.setText(mTask.getDescription());
+        mDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mTask.setDescription(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

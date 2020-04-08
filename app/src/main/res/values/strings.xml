@@ -9,4 +9,5 @@
     <string name="delete_task_here">Delete</string>
     <string name="no_tasks_add">No Tasks</string>
     <string name="no_tasks_text">There are no tasks</string>
+    <string name="description">Description</string>
 </resources>

@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -59,6 +60,8 @@ public class TaskListFragment extends Fragment {
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
             mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
+
+
             if(mTask.isSolved()){
                 mTitleTextView.setTextColor(Color.parseColor("#8CBA51"));
                 mDateTextView.setTextColor(Color.parseColor("#8CBA51"));
@@ -137,6 +140,7 @@ public class TaskListFragment extends Fragment {
 
         if(TaskLab.get(getActivity()).getTasks().size() <= 0) {
             mTextView.setVisibility(View.VISIBLE);
+            updateUI();
         } else {
             updateUI();
         }
@@ -192,6 +196,8 @@ public class TaskListFragment extends Fragment {
                 tasksSolved.add(taskTmp);
             }
         }
+
+        Collections.reverse(tasks);
 
         for (int i = 0; i < tasksSolved.size(); i++) {
             Task taskTmp = tasksSolved.get(i);

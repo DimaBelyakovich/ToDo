@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class TaskListFragment extends Fragment {
     private RecyclerView mTaskRecyclerView;
-    private TaskAdater mAdapter;
+    private TaskAdapter mAdapter;
     private TextView mTextView;
     private Date today = new Date();
 
@@ -84,9 +84,9 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-    private class TaskAdater extends RecyclerView.Adapter<TaskHolder>{
+    private class TaskAdapter extends RecyclerView.Adapter<TaskHolder>{
         private List<Task> mTasks;
-        public TaskAdater(List<Task> tasks){
+        public TaskAdapter(List<Task> tasks){
             mTasks = tasks;
         }
 
@@ -198,6 +198,7 @@ public class TaskListFragment extends Fragment {
         }
 
         Collections.reverse(tasks);
+        Collections.reverse(tasksSolved);
 
         for (int i = 0; i < tasksSolved.size(); i++) {
             Task taskTmp = tasksSolved.get(i);
@@ -205,7 +206,7 @@ public class TaskListFragment extends Fragment {
         }
 
         if(mAdapter == null){
-            mAdapter = new TaskAdater(tasks);
+            mAdapter = new TaskAdapter(tasks);
             mTaskRecyclerView.setAdapter(mAdapter);
         }
         else {

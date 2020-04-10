@@ -1,8 +1,11 @@
 package com.android.todo;
 
+import android.content.ComponentCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +38,18 @@ public class TaskListFragment extends Fragment {
     private TaskAdapter mAdapter;
     private TextView mTextView;
     private Date today = new Date();
+
+    private Callbacks mCallbacks;
+
+    public interface Callbacks{
+        void onTaskSelected(Task task);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,8 +94,7 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = TaskPagerActivity.newIntent(getActivity(), mTask.getId());
-            startActivity(intent);
+            mCallbacks.onTaskSelected(mTask);
         }
     }
 
@@ -171,8 +185,10 @@ public class TaskListFragment extends Fragment {
             case R.id.new_task:
                 Task task = new Task();
                 TaskLab.get(getActivity()).addTask(task);
-                Intent intent = TaskPagerActivity.newIntent(getActivity(), task.getId());
-                startActivity(intent);
+
+                updateUI();
+                mCallbacks.onTaskSelected(task);
+
                 return true;
 
                 default:
@@ -180,7 +196,7 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-    private void updateUI(){
+    public void updateUI(){
         TaskLab taskLab = TaskLab.get(getActivity());
         List<Task> tasksAll = taskLab.getTasks();
 
@@ -198,7 +214,6 @@ public class TaskListFragment extends Fragment {
         }
 
         Collections.reverse(tasks);
-        Collections.reverse(tasksSolved);
 
         for (int i = 0; i < tasksSolved.size(); i++) {
             Task taskTmp = tasksSolved.get(i);
@@ -214,5 +229,11 @@ public class TaskListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
     }
 }

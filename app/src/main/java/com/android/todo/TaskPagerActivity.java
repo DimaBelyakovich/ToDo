@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class TaskPagerActivity extends AppCompatActivity {
+public class TaskPagerActivity extends AppCompatActivity implements TaskFragment.Callbacks{
     private static final String EXTRA_TASK_ID = "com.android.ToDo.task_id";
 
     private ViewPager mViewPager;
@@ -56,5 +56,10 @@ public class TaskPagerActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onTaskUpdated(Task task) {
+
     }
 }

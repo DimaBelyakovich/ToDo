@@ -1,6 +1,7 @@
 package com.android.todo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,6 +38,12 @@ public class TaskFragment extends Fragment {
     private CheckBox mSolvedCheckBox;
     private EditText mDescription;
 
+    private Callbacks mCallbacks;
+
+    public interface Callbacks{
+        void onTaskUpdated(Task task);
+    }
+
     public static TaskFragment newInstance(UUID taskId){
         Bundle args = new Bundle();
         args.putSerializable(ARG_TASK_ID, taskId);
@@ -47,10 +54,20 @@ public class TaskFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context; }
+
+    @Override
     public void onPause() {
         super.onPause();
         TaskLab.get(getActivity()).updateTask(mTask);
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null; }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +112,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mTask.setTitle(s.toString());
+                updateTask();
             }
 
             @Override
@@ -114,6 +132,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mTask.setDescription(s.toString());
+                updateTask();
             }
 
             @Override
@@ -141,6 +160,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mTask.setSolved(isChecked);
+                updateTask();
             }
         });
         return v;
@@ -154,9 +174,15 @@ public class TaskFragment extends Fragment {
         if(requestCode == REQUEST_DATE){
             Date date = (Date)data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            updateTask();
             mTask.setDate(date);
             updateDate();
         }
+    }
+
+    private void updateTask(){
+        TaskLab.get(getActivity()).updateTask(mTask);
+        mCallbacks.onTaskUpdated(mTask);
     }
 
     private void updateDate() {

@@ -43,6 +43,7 @@ public class TaskListFragment extends Fragment {
 
     public interface Callbacks{
         void onTaskSelected(Task task);
+        void onTaskRemoved(Task task);
     }
 
     @Override
@@ -117,6 +118,10 @@ public class TaskListFragment extends Fragment {
 
         }
 
+        public List<Task> getTasks(){
+            return mTasks;
+        }
+
         @Override
         public int getItemCount() {
             return mTasks.size();
@@ -133,6 +138,30 @@ public class TaskListFragment extends Fragment {
         View view = inflater.inflate(R.layout.frgment_task_list, container, false);
         mTaskRecyclerView = (RecyclerView) view.findViewById(R.id.task_recycler_view);
         mTaskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        ItemTouchHelper mIth = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        final int fromPos = viewHolder.getAdapterPosition();
+                        final int toPos = target.getAdapterPosition();
+                        return false;
+                    }
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        final int pos = viewHolder.getAdapterPosition();
+                        Task task = mAdapter.getTasks().get(pos);
+                        if (direction==ItemTouchHelper.LEFT) {
+                            mCallbacks.onTaskRemoved(task);
+                            updateUI();
+                        } else if (direction== ItemTouchHelper.RIGHT) {
+                            mCallbacks.onTaskSelected(task);
+                            updateUI();
+                        }
+                    }
+                });
+        mIth.attachToRecyclerView(mTaskRecyclerView);
 
         ///
         AnimationSet set = new AnimationSet(true);

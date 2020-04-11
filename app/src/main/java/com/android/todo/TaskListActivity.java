@@ -5,7 +5,7 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 
 public class TaskListActivity extends SingleFragmentActivity
-        implements TaskListFragment.Callbacks, TaskFragment.Callbacks{
+        implements TaskListFragment.Callbacks, TaskFragment.Callbacks {
     @Override
     protected Fragment createFragment() {
         return new TaskListFragment();
@@ -23,6 +23,13 @@ public class TaskListActivity extends SingleFragmentActivity
                     .replace(R.id.detail_fragment_container, newDetail)
                     .commit();
         }
+    }
+
+    @Override
+    public void onTaskRemoved(Task task) {
+        TaskListFragment listFragment = (TaskListFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        TaskLab.get(this).deleteTask(task);
+        listFragment.updateUI();
     }
 
     @Override

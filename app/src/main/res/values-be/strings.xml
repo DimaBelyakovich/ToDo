@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="task_title_hint">Дадаць заданне</string>
+    <string name="task_title_label">Загаловак</string>
+    <string name="task_details_label">Устанавіць дату</string>
+    <string name="task_solved_label">Зроблена</string>
+    <string name="date_picker_fragment">Выбраць дату</string>
+    <string name="new_task">Новае заданне</string>
+    <string name="delete_task_here">Выдаліць</string>
+    <string name="no_tasks_add">Няма заданняў</string>
+    <string name="no_tasks_text">Тут няма ніякіх задач</string>
+    <string name="description">Апісанне</string>
+</resources>

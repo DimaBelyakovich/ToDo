@@ -75,7 +75,7 @@ public class TaskListFragment extends Fragment {
         public void bind(Task task){
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
-            mDateTextView.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
+            mDateTextView.setText(mTask.getFormattedDate());
 
 
             if(mTask.isSolved()){

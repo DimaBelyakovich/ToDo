@@ -186,6 +186,6 @@ public class TaskFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateButton.setText(DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH).format(mTask.getDate()));
+        mDateButton.setText(mTask.getFormattedDate());
     }
 }

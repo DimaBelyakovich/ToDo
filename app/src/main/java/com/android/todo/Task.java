@@ -1,5 +1,11 @@
 package com.android.todo;
 
+import android.content.res.Resources;
+
+import androidx.core.os.ConfigurationCompat;
+import androidx.core.os.LocaleListCompat;
+
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,6 +40,15 @@ public class Task {
 
     public Date getDate() {
         return mDate;
+    }
+
+    public String getFormattedDate() {
+
+        LocaleListCompat localeListCompat = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
+
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, localeListCompat.get(0));
+
+        return dateFormat.format(mDate);
     }
 
     public void setDate(Date date) {

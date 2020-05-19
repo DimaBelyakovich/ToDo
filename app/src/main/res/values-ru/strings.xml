@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="task_title_hint">Введите задание</string>
+    <string name="task_title_label">Заголовок</string>
+    <string name="task_details_label">Установить дату</string>
+    <string name="task_solved_label">сделано</string>
+    <string name="date_picker_fragment">Выбрать дату</string>
+    <string name="new_task">Новое задание</string>
+    <string name="delete_task_here">Удалить</string>
+    <string name="no_tasks_add">Нет заданий</string>
+    <string name="no_tasks_text">Пока нет никаких заданий</string>
+    <string name="description">Описание</string>
+</resources>

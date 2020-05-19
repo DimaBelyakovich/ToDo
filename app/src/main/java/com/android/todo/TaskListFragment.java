@@ -173,7 +173,7 @@ public class TaskListFragment extends Fragment {
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0.0f
         );
-        animation.setDuration(50);
+        animation.setDuration(80);
         set.addAnimation(animation);
 
         mTaskRecyclerView.setLayoutAnimation(new LayoutAnimationController(set, 0.5f));
